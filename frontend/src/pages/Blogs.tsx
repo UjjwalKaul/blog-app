@@ -1,30 +1,29 @@
 import AppBar from '../components/AppBar';
 import BlogCard from '../components/BlogCard';
+import useBlogs from '../hooks';
 
 export default function Blogs() {
+  const { loading, blogs } = useBlogs();
+  if (loading) {
+    return <div className="text-3xl font-bold">Loading...</div>;
+  }
   return (
     <div>
       <AppBar />
       <div className="flex justify-center">
-        <div className="max-w-xl">
-          <BlogCard
-            authorName="Ujjawal"
-            title="How an Ugly single website makes 5000$ a month with Affiliate Marketting"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa maiores, reprehenderit hic eos, nisi accusamus molestiae debitis, iusto deleniti commodi explicabo vitae eligendi! Esse suscipit quo rem maxime, accusamus in ipsa officiis dicta aliquid blanditiis odit nisi necessitatibus animi magnam facere numquam laudantium dignissimos. Maxime quae repellat officia architecto cupiditate!"
-            publishedDate="1st Feb 2002"
-          />
-          <BlogCard
-            authorName="Ujjawal"
-            title="How an Ugly single website makes 5000$ a month with Affiliate Marketting"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa maiores, reprehenderit hic eos, nisi accusamus molestiae debitis, iusto deleniti commodi explicabo vitae eligendi! Esse suscipit quo rem maxime, accusamus in ipsa officiis dicta aliquid blanditiis odit nisi necessitatibus animi magnam facere numquam laudantium dignissimos. Maxime quae repellat officia architecto cupiditate!"
-            publishedDate="1st Feb 2002"
-          />
-          <BlogCard
-            authorName="Ujjawal"
-            title="How an Ugly single website makes 5000$ a month with Affiliate Marketting"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa maiores, reprehenderit hic eos, nisi accusamus molestiae debitis, iusto deleniti commodi explicabo vitae eligendi! Esse suscipit quo rem maxime, accusamus in ipsa officiis dicta aliquid blanditiis odit nisi necessitatibus animi magnam facere numquam laudantium dignissimos. Maxime quae repellat officia architecto cupiditate!"
-            publishedDate="1st Feb 2002"
-          />
+        <div>
+          {blogs.map((blog) => {
+            return (
+              <BlogCard
+                id={blog.id}
+                key={blog.id}
+                authorName={blog.author.name || 'Anonymous'}
+                title={blog.title}
+                content={blog.content}
+                publishedDate="1st Feb 2002"
+              />
+            );
+          })}
         </div>
       </div>
     </div>
